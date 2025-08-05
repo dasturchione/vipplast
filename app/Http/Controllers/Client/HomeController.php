@@ -8,6 +8,7 @@ use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Feedback;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\YoutubeBlog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -157,5 +158,10 @@ class HomeController extends Controller
                 $product->save();
             }
         });
+    }
+
+    public function about(){
+        $about = Setting::first();
+        return view('client.pages.about', compact('about'));
     }
 }

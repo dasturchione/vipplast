@@ -98,6 +98,24 @@
                     </li>
 
                     <li>
+                        <a href="{{ route('admin.ytblog') }}" @click="selected = (selected === 'ytblog' ? '':'ytblog')"
+                            class="menu-item group"
+                            :class="(selected === 'ytblog') ? 'menu-item-active' : 'menu-item-inactive'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="m36.527 35.361l-7.396.53l-.05.003a25.3 25.3 0 0 0-7.056 1.638l-4.759 1.794a7.506 7.506 0 0 1-9.982-5.422L4.674 21.95a7.506 7.506 0 0 1 5.733-8.934l21.325-4.655a7.506 7.506 0 0 1 8.934 5.732l2.659 12.18a7.506 7.506 0 0 1-6.798 9.087" />
+                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" d="m19.164 18.952l2.316 10.61l9.593-6.993z" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                YouTube bloglar
+                            </span>
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="{{ route('admin.products') }}"
                             @click="selected = (selected === 'products' ? '':'products')" class="menu-item group"
                             :class="(selected === 'products') ? 'menu-item-active' : 'menu-item-inactive'">
@@ -151,6 +169,23 @@
 
                             <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                                 Fikirlar
+                            </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.settings') }}"
+                            @click="selected = (selected === 'settings' ? '':'settings')" class="menu-item group"
+                            :class="(selected === 'settings') ? 'menu-item-active' : 'menu-item-inactive'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 48 48">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M39.23 26a17 17 0 0 0 .14-2a17 17 0 0 0-.14-2l4.33-3.39a1 1 0 0 0 .25-1.31l-4.1-7.11a1 1 0 0 0-1.25-.44l-5.11 2.06a15.7 15.7 0 0 0-3.46-2l-.77-5.43a1 1 0 0 0-1-.86H19.9a1 1 0 0 0-1 .86l-.77 5.43a15.4 15.4 0 0 0-3.46 2L9.54 9.75a1 1 0 0 0-1.25.44l-4.1 7.11a1 1 0 0 0 .25 1.31L8.76 22a17 17 0 0 0-.14 2a17 17 0 0 0 .14 2l-4.32 3.39a1 1 0 0 0-.25 1.31l4.1 7.11a1 1 0 0 0 1.25.44l5.11-2.06a15.7 15.7 0 0 0 3.46 2l.77 5.43a1 1 0 0 0 1 .86h8.2a1 1 0 0 0 1-.86l.77-5.43a15.4 15.4 0 0 0 3.46-2l5.11 2.06a1 1 0 0 0 1.25-.44l4.1-7.11a1 1 0 0 0-.25-1.31ZM24 31.18A7.18 7.18 0 1 1 31.17 24A7.17 7.17 0 0 1 24 31.18" />
+                            </svg>
+
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Sozlamalar
                             </span>
                         </a>
                     </li>

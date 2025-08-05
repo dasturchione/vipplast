@@ -9,16 +9,16 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\YoutubeController;
 use App\Http\Controllers\Client\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/contact', [HomeController::class, 'contactPost'])->name('contact');
 Route::get('/catalog', [HomeController::class, 'catalog'])->name('catalog');
-Route::get('/about', function () {
-    return view('client.pages.about');
-})->name('about');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Route::get('/products', [HomeController::class, 'all'])->name('products.all');
 Route::get('/products/{categorySlug}/{subcategorySlug?}', [HomeController::class, 'products'])->name('products');
@@ -54,6 +54,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/child-categories/{parentid}', [CategoryController::class, 'childCategory']);
         Route::post('/categories/update', [CategoryController::class, 'update'])->name('admin.categories.update');
 
+        Route::get('/youtubeblogs', [YoutubeController::class, 'index'])->name('admin.ytblog');
+        Route::get('/youtubeblog/{action}/{id?}', [YoutubeController::class, 'form'])->name('admin.ytblog.form');
+        Route::post('/youtubeblog/{id?}', [YoutubeController::class, 'post'])->name('admin.ytblog.post');
+        Route::delete('/youtubeblog/{id?}', [YoutubeController::class, 'destroy'])->name('admin.ytblog.destroy');
+
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products');
         Route::get('/product/{action}/{id?}', [ProductController::class, 'form'])->name('admin.products.form');
         Route::post('/product/{id?}', [ProductController::class, 'post'])->name('admin.products.post');
@@ -64,6 +69,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/feedbacks', [FeedbackController::class, 'index'])->name('admin.feedbacks');
         Route::post('/feedback/view', [FeedbackController::class, 'markAsRead'])->name('admin.feedback.view');
+
+        Route::get('/settings', [SettingController::class, 'form'])->name('admin.settings');
+        Route::post('/settingsp', [SettingController::class, 'post'])->name('admin.setting.post');
 
     });
 

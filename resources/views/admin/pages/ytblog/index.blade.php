@@ -10,12 +10,12 @@
                 <div class="flex flex-col gap-4 px-6 mb-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
-                            Mahsulotlar ro'yxati
+                            Bloglar ro'yxati
                         </h3>
                     </div>
 
                     <div class="flex items-center gap-3">
-                        <button onclick="window.location.href='{{ route('admin.products.form', ['action' => 'create']) }}'"
+                        <button onclick="window.location.href='{{ route('admin.ytblog.form', ['action' => 'create']) }}'"
                             class="text-theme-sm shadow-theme-xs inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -31,17 +31,17 @@
                             <tr class="border-b border-gray-100 dark:border-gray-800">
                                 <th class="px-5 py-3 text-left sm:px-6">
                                     <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                        Mahsulot
+                                        Video
                                     </p>
                                 </th>
                                 <th class="px-5 py-3 text-left sm:px-6">
                                     <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                        Kategoriya
+                                        Title (uz)
                                     </p>
                                 </th>
                                 <th class="px-5 py-3 text-left sm:px-6">
                                     <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                        Tavsif
+                                        Title (ru)
                                     </p>
                                 </th>
                                 <th class="px-5 py-3 text-left sm:px-6">
@@ -62,53 +62,49 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $product)
+                            @foreach ($data as $ytblog)
                                 <tr class="border-b border-gray-100 dark:border-gray-800">
                                     <td class="px-5 py-4 sm:px-6 w-95" colspan="1">
-                                        <div class="flex items-center gap-3">
-                                            <div class=" h-20 overflow-hidden rounded-[5px]">
-                                                <img class="h-20" src="{{ asset('storage/' . $product->image) }}"
-                                                    alt="{{ $product->name_uz }}" />
-                                            </div>
-                                            <div>
-                                                <span
-                                                    class="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                                                    {{ $product->name_uz }}
-                                                </span>
-                                            </div>
+                                        <div class="aspect-[9/16] w-48 rounded overflow-hidden">
+                                            <iframe class="w-full h-full"
+                                                src="https://www.youtube.com/embed/{{ $ytblog->youtube_id }}?autoplay=0&mute=0&modestbranding=1&rel=0"
+                                                loading="lazy" title="YouTube Shorts"
+                                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                            </iframe>
                                         </div>
+
                                     </td>
                                     <td class="px-5 py-4 sm:px-6">
                                         <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                            {{ optional(optional($product->category)->parent)->name_uz }} /
-                                            {{ $product->category->name_uz }}
+                                            {{ $ytblog->title_uz }}
                                         </p>
                                     </td>
                                     <td class="px-5 py-4 sm:px-6">
                                         <p class="text-gray-500 text-theme-sm dark:text-gray-400 line-clamp-3">
-                                            {{ $product->description_uz }}
+                                            {{ $ytblog->title_ru }}
                                         </p>
                                     </td>
                                     <td class="px-5 py-4 sm:px-6">
                                         <p class="text-gray-500 text-theme-sm dark:text-gray-400 whitespace-nowrap">
-                                            {{ $product->created_at->format('d.m.Y H:i') }}
+                                            {{ $ytblog->created_at->format('d.m.Y H:i') }}
                                         </p>
                                     </td>
                                     <td class="px-5 py-4 sm:px-6">
                                         <p
                                             class="
                                         text-theme-xs font-medium inline-block rounded-full px-2 py-0.5
-                                        {{ $product->status
+                                        {{ $ytblog->status
                                             ? 'bg-success-50 text-success-700 dark:bg-success-500/15 dark:text-success-500'
                                             : 'bg-error-50 text-error-700 dark:bg-error-500/15 dark:text-error-500' }}">
-                                            {{ $product->status ? 'Faol' : 'Nofaol' }}
+                                            {{ $ytblog->status ? 'Faol' : 'Nofaol' }}
                                         </p>
 
                                     </td>
                                     <td class="px-5 py-4 sm:px-6 ">
                                         <div class="flex items-center space-x-2">
                                             <a
-                                                href="{{ route('admin.products.form', ['action' => 'edit', 'id' => $product->id]) }}">
+                                                href="{{ route('admin.ytblog.form', ['action' => 'edit', 'id' => $ytblog->id]) }}">
                                                 <svg class="cursor-pointer hover:fill-success-500 dark:hover:fill-success-500 fill-gray-700 dark:fill-gray-400"
                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 1024 1024" fill="none">
@@ -116,8 +112,7 @@
                                                         d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 0 0 0-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 0 0 9.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9m67.4-174.4L687.8 215l73.3 73.3l-362.7 362.6l-88.9 15.7zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32" />
                                                 </svg>
                                             </a>
-                                            <form method="POST"
-                                                action="{{ route('admin.product.destroy', $product->id) }}"
+                                            <form method="POST" action="{{ route('admin.ytblog.destroy', $ytblog->id) }}"
                                                 onsubmit="return confirm('Rostdan ham o‘chirmoqchimisiz?')" class="inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -147,10 +142,5 @@
                     </table>
                 </div>
             </div>
-            <!-- ====== Table Six End -->
         </div>
-    </div>
-@endsection
-
-@push('scripts')
-@endpush
+    @endsection

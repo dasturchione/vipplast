@@ -21,7 +21,7 @@
     <script>
         const images = [
             @foreach ($catalog as $item)
-                "{{ asset('storage/catalog/' . $item->image) }}",
+                "{{ asset('storage/' . $item->image) }}",
             @endforeach
         ];
 

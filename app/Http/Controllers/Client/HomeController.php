@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BannerResource;
 use App\Models\Banner;
+use App\Models\Catalog;
 use App\Models\Category;
 use App\Models\Feedback;
 use App\Models\Product;
@@ -53,25 +54,7 @@ class HomeController extends Controller
 
     public function catalog()
     {
-        $catalog = [
-            (object)['image' => '1.jpg'],
-            (object)['image' => '2.jpg'],
-            (object)['image' => '3.jpg'],
-            (object)['image' => '4.jpg'],
-            (object)['image' => '5.jpg'],
-            (object)['image' => '6.jpg'],
-            (object)['image' => '7.jpg'],
-            (object)['image' => '8.jpg'],
-            (object)['image' => '9.jpg'],
-            (object)['image' => '10.jpg'],
-            (object)['image' => '11.jpg'],
-            (object)['image' => '12.jpg'],
-            (object)['image' => '13.jpg'],
-            (object)['image' => '14.jpg'],
-            (object)['image' => '15.jpg'],
-            (object)['image' => '16.jpg'],
-            (object)['image' => '17.jpg'],
-        ];
+        $catalog = Catalog::orderBy('sort', 'asc')->get();
 
         $breadcrumb = [
             ['label' => __('lang.catalog'), 'href' => route('catalog')],

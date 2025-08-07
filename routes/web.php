@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CatalogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\ProductController;
@@ -58,6 +59,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/youtubeblog/{action}/{id?}', [YoutubeController::class, 'form'])->name('admin.ytblog.form');
         Route::post('/youtubeblog/{id?}', [YoutubeController::class, 'post'])->name('admin.ytblog.post');
         Route::delete('/youtubeblog/{id?}', [YoutubeController::class, 'destroy'])->name('admin.ytblog.destroy');
+
+        Route::get('/catalogs', [CatalogController::class, 'index'])->name('admin.catalogs');
+        Route::post('/catalog/post', [CatalogController::class, 'post'])->name('admin.catalog.post');
+        Route::post('/catalog/sort', [CatalogController::class, 'sort'])->name('catalog.sort');
+        Route::delete('/catalog/{id?}', [CatalogController::class, 'destroy'])->name('admin.catalog.destroy');
 
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products');
         Route::get('/product/{action}/{id?}', [ProductController::class, 'form'])->name('admin.products.form');

@@ -76,7 +76,6 @@ class BannerController extends Controller
                 $banner = $this->model::create($data);
             }
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage())->withInput();
         }
 

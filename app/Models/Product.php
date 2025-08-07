@@ -6,6 +6,7 @@ use App\Models\Category;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -60,5 +61,15 @@ class Product extends Model
             'category_id' => 'required|exists:categories,id',
             'status' => 'required|in:1,0',
         ];
+    }
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($model) {
+            if (!empty($model->image) && Storage::disk('public')->exists($model->image)) {
+                Storage::disk('public')->delete($model->image);
+            }
+        });
     }
 }
